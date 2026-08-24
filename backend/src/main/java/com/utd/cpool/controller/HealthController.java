@@ -8,6 +8,6 @@ public class HealthController {
 
     @GetMapping("/health")
     public String healthCheck() {
-        return "Cpool backend is up and running!";
+        return "Cpool is running";
     }
 }
