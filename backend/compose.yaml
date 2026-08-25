@@ -1,16 +1,35 @@
 services:
-   postgres:
-    image: postgres:17
-    container_name: utd-carpool-postgres
-    restart: unless-stopped
+  postgres:
+    image: postgres:18
+    container_name: cpool-postgres
     environment:
-      POSTGRES_DB: carpool
-      POSTGRES_USER: carpool_user
-      POSTGRES_PASSWORD: carpool_password
+      POSTGRES_DB: cpool
+      POSTGRES_USER: cpool_user
+      POSTGRES_PASSWORD: cpool_password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cpool_user -d cpool"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  flyway:
+    image: flyway/flyway:13
+    container_name: cpool-flyway
+    command: >
+      -url=jdbc:postgresql://postgres:5432/cpool
+      -user=cpool_user
+      -password=cpool_password
+      -locations=filesystem:/flyway/sql
+      migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:

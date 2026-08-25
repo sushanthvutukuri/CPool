@@ -1,7 +1,7 @@
 CREATE TABLE ride_requests (
-    id BIGSERIAL PRIMARY KEY,
-    ride_id BIGINT NOT NULL,
-    passenger_id BIGINT NOT NULL,
+    id UUID PRIMARY KEY,
+    ride_id UUID NOT NULL,
+    passenger_id UUID NOT NULL,
     status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 

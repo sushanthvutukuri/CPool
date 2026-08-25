@@ -19,6 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @RequestMapping("/create")
     public UserResponse createUser(@RequestBody CreateUserRequest request) {
         return userService.createUser(request);
     }

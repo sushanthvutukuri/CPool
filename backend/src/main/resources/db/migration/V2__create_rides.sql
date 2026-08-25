@@ -1,6 +1,6 @@
 CREATE TABLE rides (
-    id BIGSERIAL PRIMARY KEY,
-    driver_id BIGINT NOT NULL,
+    id UUID PRIMARY KEY,
+    driver_id UUID NOT NULL,
     origin VARCHAR(255) NOT NULL,
     destination VARCHAR(255) NOT NULL,
     departure_time TIMESTAMP NOT NULL,
