@@ -1,8 +1,12 @@
 package com.utd.cpool.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -15,6 +19,21 @@ public class User{
      private String name;
 
      private String email;
+
+     @Column(name="password_hash")
+     private String passwordHash;
+
+     @Column(name="created_at")
+     private LocalDateTime createdAt;
+     
+     @PrePersist
+     protected void onCreate(){
+        this.createdAt=LocalDateTime.now();
+        if(this.id==null)
+        {
+            this.id=UUID.randomUUID();
+        }
+     }
 
      public User(){
 
@@ -32,6 +51,10 @@ public class User{
          this.email = email;
      }
 
+     public void setPassword(String password){
+        this.passwordHash=password;
+     }
+
      public String getName() {
          return name;
      }
@@ -44,5 +67,8 @@ public class User{
          return id;
      }
 
+     public String getPassword(){
+        return passwordHash;
+     }
 
 }
