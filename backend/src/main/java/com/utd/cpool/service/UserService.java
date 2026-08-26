@@ -6,9 +6,12 @@ import com.utd.cpool.entity.User;
 import com.utd.cpool.repository.UserRepository;
 import com.utd.cpool.config.*;
 import com.utd.cpool.exception.UserNotFoundException;
+import com.utd.cpool.exception.UserAlreadyExistsException;
+import jakarta.validation.Valid;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.net.PasswordAuthentication;
 import java.util.UUID;
@@ -17,15 +20,19 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncrypter;
+    private final PasswordEncoder passwordEncoder;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncrypter=passwordEncoder;
+        this.passwordEncoder=passwordEncoder;
     }
 
     public UserResponse createUser(CreateUserRequest request){
-        String passwordHash=passwordEncrypter.encode(request.password());
+        if (userRepository.existsByEmail(request.email()))
+        {
+            throw new UserAlreadyExistsException("Email already in use "+request.email());
+        }
+        String passwordHash=passwordEncoder.encode(request.password());
         User user=new User();
         user.setEmail(request.email());
         user.setName(request.name());
