@@ -35,7 +35,8 @@ public class AuthService {
             throw new InvalidCredentials("Email or password is incorrect");
         }
 
-        return new AuthResponse("Success");
+        User authenticatedUser = user.get();
+        return new AuthResponse("Success", authenticatedUser.getId(), authenticatedUser.getName(), authenticatedUser.getEmail());
 
     }
 

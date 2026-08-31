@@ -1,6 +1,14 @@
 package com.utd.cpool.dto.auth;
 
-public record AuthResponse(
+import java.util.UUID;
 
-    String status
-){}
+public record AuthResponse(
+    String status,
+    UUID userId,
+    String name,
+    String email
+) {
+    public AuthResponse(String status) {
+        this(status, null, null, null);
+    }
+}

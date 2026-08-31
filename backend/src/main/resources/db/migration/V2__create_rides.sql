@@ -5,8 +5,6 @@ CREATE TABLE rides (
     destination VARCHAR(255) NOT NULL,
     departure_time TIMESTAMP NOT NULL,
     available_seats INTEGER NOT NULL,
-    status VARCHAR(50) NOT NULL DEFAULT 'Open',
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_ride_driver
         FOREIGN KEY (driver_id)

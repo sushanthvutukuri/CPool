@@ -1,20 +1,16 @@
 package com.utd.cpool.service;
 
-import com.utd.cpool.dto.user.CreateUserRequest;
-import com.utd.cpool.dto.user.UserResponse;
-import com.utd.cpool.entity.User;
-import com.utd.cpool.repository.UserRepository;
-import com.utd.cpool.config.*;
-import com.utd.cpool.exception.UserNotFoundException;
-import com.utd.cpool.exception.UserAlreadyExistsException;
-import jakarta.validation.Valid;
+import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import java.net.PasswordAuthentication;
-import java.util.UUID;
+import com.utd.cpool.dto.user.CreateUserRequest;
+import com.utd.cpool.dto.user.UserResponse;
+import com.utd.cpool.entity.User;
+import com.utd.cpool.exception.UserAlreadyExistsException;
+import com.utd.cpool.exception.UserNotFoundException;
+import com.utd.cpool.repository.UserRepository;
 
 @Service
 public class UserService {
