@@ -7,7 +7,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string, phoneNumber?: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -40,6 +40,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: authRes.userId,
         name: authRes.name || email.split('@')[0],
         email: authRes.email || email,
+        phoneNumber: authRes.phoneNumber || '',
       };
       setUser(loggedUser);
       localStorage.setItem('cpool_user', JSON.stringify(loggedUser));
@@ -49,14 +50,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: 'logged-in-user',
         name: email.split('@')[0],
         email: email,
+        phoneNumber: '',
       };
       setUser(loggedUser);
       localStorage.setItem('cpool_user', JSON.stringify(loggedUser));
     }
   };
 
-  const signup = async (name: string, email: string, password: string) => {
-    const createdUser = await authApi.signup(name, email, password);
+  const signup = async (name: string, email: string, password: string, phoneNumber?: string) => {
+    const createdUser = await authApi.signup(name, email, password, phoneNumber);
     setUser(createdUser);
     localStorage.setItem('cpool_user', JSON.stringify(createdUser));
   };
@@ -89,4 +91,3 @@ export const useAuth = (): AuthContextType => {
   }
   return context;
 };
-

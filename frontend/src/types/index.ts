@@ -2,11 +2,13 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  phoneNumber?: string;
 }
 
 export interface Ride {
   id: string;
   driverId: string;
+  driverPhone?: string;
   origin: string;
   destination: string;
   departureTime: string; // ISO-8601 string, e.g. "2026-01-18T20:00:00"
@@ -43,6 +45,7 @@ export interface AuthResponse {
   userId?: string;
   name?: string;
   email?: string;
+  phoneNumber?: string;
 }
 
 export interface ApiError {
@@ -51,4 +54,3 @@ export interface ApiError {
   message: string;
   errors?: Record<string, string>;
 }
-

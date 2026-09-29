@@ -86,7 +86,7 @@ class RideControllerTest {
                 .andExpect(jsonPath("$[0].departureTime").value("2026-01-18T20:00:00"))
                 .andExpect(jsonPath("$[0].availableSeats").value(3))
                 .andExpect(jsonPath("$[0].recurring").value(false))
-                .andExpect(jsonPath("$[0].status").value("Open"));
+                .andExpect(jsonPath("$[0].status").value("OPEN"));
     }
 
     @Test

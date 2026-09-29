@@ -33,6 +33,7 @@ public class UserService {
         user.setEmail(request.email());
         user.setName(request.name());
         user.setPassword(passwordHash);
+        user.setPhoneNumber(request.phoneNumber() != null ? request.phoneNumber() : "");
         User savedUser=userRepository.save(user);
         return mapToUserReponse(savedUser);
     }
@@ -44,6 +45,6 @@ public class UserService {
     }
 
     public UserResponse mapToUserReponse(User user) {
-        return new UserResponse(user.getId(),user.getName(),user.getEmail());
+        return new UserResponse(user.getId(), user.getName(), user.getEmail(), user.getPhoneNumber());
     }
 }

@@ -6,9 +6,14 @@ public record AuthResponse(
     String status,
     UUID userId,
     String name,
-    String email
+    String email,
+    String phoneNumber
 ) {
     public AuthResponse(String status) {
-        this(status, null, null, null);
+        this(status, null, null, null, null);
+    }
+
+    public AuthResponse(String status, UUID userId, String name, String email) {
+        this(status, userId, name, email, null);
     }
 }

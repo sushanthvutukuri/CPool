@@ -36,8 +36,12 @@ public class AuthService {
         }
 
         User authenticatedUser = user.get();
-        return new AuthResponse("Success", authenticatedUser.getId(), authenticatedUser.getName(), authenticatedUser.getEmail());
-
+        return new AuthResponse(
+            "Success",
+            authenticatedUser.getId(),
+            authenticatedUser.getName(),
+            authenticatedUser.getEmail(),
+            authenticatedUser.getPhoneNumber()
+        );
     }
-
 }

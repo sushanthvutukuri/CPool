@@ -182,9 +182,11 @@ public class RideService {
 
     public RideResponse mapToRideResponse(Ride ride) {
         UUID driverId = ride.getDriverID() != null ? ride.getDriverID().getId() : null;
+        String driverPhone = ride.getDriverID() != null ? ride.getDriverID().getPhoneNumber() : null;
         return new RideResponse(
                 ride.getId(),
                 driverId,
+                driverPhone,
                 ride.getOrigin(),
                 ride.getDestination(),
                 ride.getDepartureTime(),

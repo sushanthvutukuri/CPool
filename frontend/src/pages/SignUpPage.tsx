@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Car, User as UserIcon, Mail, Lock, ArrowRight, AlertCircle, Check, Sun, Moon } from 'lucide-react';
+import { Car, User as UserIcon, Mail, Lock, Phone, ArrowRight, AlertCircle, Check, Sun, Moon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
 export const SignUpPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   
@@ -31,7 +32,7 @@ export const SignUpPage: React.FC = () => {
     e.preventDefault();
 
     if (!name.trim() || !email.trim() || !password) {
-      setError('Please fill in all fields.');
+      setError('Please fill in all required fields.');
       return;
     }
 
@@ -49,7 +50,7 @@ export const SignUpPage: React.FC = () => {
     setError(null);
 
     try {
-      await signup(name.trim(), email.trim(), password);
+      await signup(name.trim(), email.trim(), password, phoneNumber.trim());
       navigate('/');
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please check your information.');
@@ -102,7 +103,7 @@ export const SignUpPage: React.FC = () => {
             {/* Full Name */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Full Name
+                Full Name *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -122,7 +123,7 @@ export const SignUpPage: React.FC = () => {
             {/* Email Field */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Email Address
+                Email Address *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -139,10 +140,29 @@ export const SignUpPage: React.FC = () => {
               </div>
             </div>
 
+            {/* Phone Number Field */}
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Phone Number
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <input
+                  type="tel"
+                  value={phoneNumber}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                  placeholder="(555) 000-0000"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-slate-900 dark:text-white placeholder-slate-400"
+                />
+              </div>
+            </div>
+
             {/* Password Field */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Password
+                Password *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -162,7 +182,7 @@ export const SignUpPage: React.FC = () => {
             {/* Confirm Password Field */}
             <div className="space-y-1.5">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                Confirm Password
+                Confirm Password *
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -243,4 +263,3 @@ export const SignUpPage: React.FC = () => {
     </div>
   );
 };
-

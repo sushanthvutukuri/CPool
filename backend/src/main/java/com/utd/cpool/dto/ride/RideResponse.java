@@ -8,6 +8,7 @@ import com.utd.cpool.entity.Ride.RideStatus;
 public record RideResponse(
     UUID id,
     UUID driverId,
+    String driverPhone,
     String origin,
     String destination,
     LocalDateTime departureTime,
@@ -16,4 +17,17 @@ public record RideResponse(
     LocalDateTime createdAt,
     boolean recurring
 ) {
+    public RideResponse(
+        UUID id,
+        UUID driverId,
+        String origin,
+        String destination,
+        LocalDateTime departureTime,
+        int availableSeats,
+        RideStatus status,
+        LocalDateTime createdAt,
+        boolean recurring
+    ) {
+        this(id, driverId, null, origin, destination, departureTime, availableSeats, status, createdAt, recurring);
+    }
 }

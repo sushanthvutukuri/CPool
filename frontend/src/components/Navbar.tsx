@@ -65,15 +65,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateRide }) => {
                   </button>
                 )}
 
-                {/* User Profile Badge */}
-                <div className="flex items-center space-x-2 py-1 px-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200/60 dark:border-slate-700/60">
+                {/* User Profile Link Badge */}
+                <Link
+                  to="/profile"
+                  className="flex items-center space-x-2 py-1 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700/80 border border-slate-200/60 dark:border-slate-700/60 transition-colors duration-200"
+                  title="View Profile"
+                >
                   <div className="w-7 h-7 rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold text-xs">
                     {user?.name ? user.name.charAt(0).toUpperCase() : <UserIcon className="w-4 h-4" />}
                   </div>
                   <span className="hidden md:inline-block text-xs font-semibold text-slate-700 dark:text-slate-200 max-w-[120px] truncate">
                     {user?.name || user?.email}
                   </span>
-                </div>
+                </Link>
 
                 {/* Logout Button */}
                 <button

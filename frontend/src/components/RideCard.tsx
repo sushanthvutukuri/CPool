@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Clock, Users, Repeat, CheckCircle2, AlertCircle } from 'lucide-react';
+import { MapPin, Clock, Users, Repeat, CheckCircle2, AlertCircle, Phone } from 'lucide-react';
 import { Ride } from '../types';
 import { useAuth } from '../context/AuthContext';
 import { rideRequestApi } from '../api/rideRequestApi';
@@ -61,7 +61,7 @@ export const RideCard: React.FC<RideCardProps> = ({ ride, onRequestSuccess }) =>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Route details */}
         <div className="flex-1 space-y-3">
-          <div className="flex items-center space-x-2">
+          <div className="flex flex-wrap items-center gap-2">
             {ride.recurring && (
               <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-teal-50 text-teal-700 dark:bg-teal-950/60 dark:text-teal-300 border border-teal-200 dark:border-teal-800">
                 <Repeat className="w-3 h-3" />
@@ -70,13 +70,26 @@ export const RideCard: React.FC<RideCardProps> = ({ ride, onRequestSuccess }) =>
             )}
             <span
               className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${
-                ride.status === 'Open'
+                ride.status === 'OPEN' || ride.status === 'Open'
                   ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800'
                   : 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
               }`}
             >
               {ride.status || 'Open'}
             </span>
+
+            {/* Driver Phone Number Badge */}
+            {ride.driverPhone && (
+              <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-slate-700/60">
+                <Phone className="w-3 h-3 text-emerald-500" />
+                <a
+                  href={`tel:${ride.driverPhone}`}
+                  className="hover:text-emerald-600 dark:hover:text-emerald-400 hover:underline"
+                >
+                  {ride.driverPhone}
+                </a>
+              </span>
+            )}
           </div>
 
           {/* Route path */}
@@ -154,4 +167,3 @@ export const RideCard: React.FC<RideCardProps> = ({ ride, onRequestSuccess }) =>
     </div>
   );
 };
-
